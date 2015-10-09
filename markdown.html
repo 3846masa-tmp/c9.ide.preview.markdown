@@ -4,61 +4,35 @@
 <head>
   <script src="libmarkdown.js"></script>
   <style>
+    html {
+      background-color: white;
+    }
     #preview {
-      position: absolute;
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      overflow: auto;
-      /*background-color: rgb(21, 59, 90);*/
-      /*color: #f1f1f1;*/
-      /*background-color: rgb(224, 224, 224);*/
-      color: rgb(0, 0, 0);
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      padding: 20px;
-      font-family: Arial;
-      font-size: 14px;
-    }
-
-    #preview>*:first-child {
-      margin-top: 0 !important;
-    }
-
-    code {
-      font-size: 13px;
-    }
-
-    pre code {
-      background-color: rgb(240, 240, 240);
-      border: 1px solid rgb(199, 198, 198);
-      font-size: 13px;
-      line-height: 19px;
-      overflow: auto;
-      padding: 6px 10px;
-      border-radius: 3px;
-      display: inline-block;
-    }
-
-    p,
-    li {
-      line-height: 1.4em;
-    }
-
-    a {
-      color: rgb(39, 102, 165);
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
+      font-family: serif;
+      margin: 50px;
     }
   </style>
+  <link rel="stylesheet" href="github-markdown-css/github-markdown.css" />
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      skipStartupTypeset: true,
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      },
+      "HTML-CSS": {
+        availableFonts: ["TeX"]
+      }
+    });
+  </script>
+  <script src="MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML&delayStartupUntil=configured"></script>
 </head>
 
 <body>
-  <div id="preview">
+  <div id="preview" class="markdown-body">
 
   </div>
   <script>
@@ -113,9 +87,11 @@
         if (host != "local" && e.origin !== host)
           return;
 
-        if (e.data.type == "document")
+        if (e.data.type == "document") {
           preview.innerHTML = marked(e.data.content);
-        else if (e.data.type == "keys")
+          MathJax.Hub.Configured();
+          MathJax.Hub.Queue(["Typeset", MathJax.Hub, preview]);
+        } else if (e.data.type == "keys")
           setKeys(e.data.keys);
       }, false);
 
