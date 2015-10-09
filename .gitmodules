@@ -1,0 +1,6 @@
+[submodule "MathJax"]
+	path = MathJax
+	url = https://github.com/mathjax/MathJax.git
+[submodule "github-markdown-css"]
+	path = github-markdown-css
+	url = https://github.com/sindresorhus/github-markdown-css.git
